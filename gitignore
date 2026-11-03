@@ -1,0 +1,16 @@
+# Data files are downloaded, not committed
+data/
+*.csv
+*.tif
+*.zip
+*.SAFE/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Earth Engine / secrets
+*.json
+.env

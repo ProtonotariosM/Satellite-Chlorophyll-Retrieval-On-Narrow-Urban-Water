@@ -1,0 +1,17 @@
+# Data files are downloaded, not committed
+data/
+*.tif
+*.zip
+*.SAFE/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# macOS
+.DS_Store

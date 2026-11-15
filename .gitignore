@@ -1,5 +1,8 @@
-# Data files are downloaded, not committed
-data/
+# Data files: only the NYC snapshot is committed
+data/*
+!data/raw/
+data/raw/*
+!data/raw/harbor_water_quality.csv
 *.tif
 *.zip
 *.SAFE/

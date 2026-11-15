@@ -23,6 +23,6 @@ results/       figures and tables for the report
 ```
 
 ## Data
-- In-situ chlorophyll-a: NYC DEP, *Harbor Water Quality*, NYC Open Data, https://data.cityofnewyork.us/d/5uug-f49n. Download the CSV export and save it as `data/raw/harbor_water_quality.csv`.
+- In-situ chlorophyll-a: NYC DEP, *Harbor Water Quality*, NYC Open Data, https://data.cityofnewyork.us/d/5uug-f49n. A snapshot (downloaded November 2026) is included in data/raw/harbor_water_quality.csv.
 - Sentinel-2: accessed through Google Earth Engine (no download needed).
 - Water polygons: OpenStreetMap, https://download.geofabrik.de/north-america/us/new-york.html

@@ -133,8 +133,8 @@ def load_insitu(raw_path: str | Path = DEFAULT_RAW_PATH, *,
             errors="coerce",   
         )
         selected["datetime"] = (selected["date"] 
-                                + pd.to_timedelta(parsed_time.dt.hour.fillna(0), unit="h")
-                                + pd.to_timedelta(parsed_time.dt.minute.fillna(0), unit="m")
+                                + pd.to_timedelta(parsed_time.dt.hour, unit="h")
+                                + pd.to_timedelta(parsed_time.dt.minute, unit="m")
         )
     else:
         selected["datetime"] = selected["date"]
@@ -166,6 +166,16 @@ def load_insitu(raw_path: str | Path = DEFAULT_RAW_PATH, *,
     )
     diagnostics["rows_missing_station_date_or_chl"] = int((~valid_required).sum())
     selected = selected[valid_required].copy()
+
+    # Use each station's median position for all its rows. Recent years (2023+)
+    # have no coordinates in the raw data, and some rows have wrong positions;
+    # dropping them would lose about a third of the samples.
+    diagnostics["rows_with_missing_coordinates_filled"] = int(
+        (selected["lat"].isna() | selected["lon"].isna()).sum()
+    )
+    selected["lat"] = selected.groupby("station")["lat"].transform("median")
+    selected["lon"] = selected.groupby("station")["lon"].transform("median")
+    
 
     valid_coordinates = selected["lat"].notna() & selected["lon"].notna()
     diagnostics["rows_with_invalid_coordinates"] = int((~valid_coordinates).sum())
@@ -258,7 +268,8 @@ def save_outputs(
     stations_path = output_dir / "stations.csv"
 
 
-    observations.to_csv(observations_path, index=False, date_format="%Y-%m-%d")
+    # was: observations.to_csv(observations_path, index=False, date_format="%Y-%m-%d")
+    observations.to_csv(observations_path, index=False)
 
     # Might be useful later. Current data has one observation per station per date
     build_station_date_table(observations).to_csv(

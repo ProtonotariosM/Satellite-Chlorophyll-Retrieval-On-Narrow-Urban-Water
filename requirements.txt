@@ -9,6 +9,7 @@ attrs==26.1.0
 babel==2.18.0
 beautifulsoup4==4.15.0
 bleach==6.4.0
+branca==0.8.2
 certifi==2026.10.23
 cffi==2.1.1
 charset-normalizer==3.5.2
@@ -21,6 +22,7 @@ defusedxml==0.7.1
 earthengine-api==1.7.52
 executing==2.3.0
 fastjsonschema==2.22.3
+folium==1.0.0
 fonttools==4.68.0
 fqdn==1.6.0
 google-api-core==2.44.0
@@ -123,3 +125,4 @@ webcolors==25.10.0
 webencodings==0.6.1
 websocket-client==1.9.2
 widgetsnbextension==4.0.16
+xyzservices==2026.9.1

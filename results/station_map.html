@@ -1,0 +1,3344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d87f91b15578f262f15e287dbca6611f {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_d87f91b15578f262f15e287dbca6611f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_d87f91b15578f262f15e287dbca6611f = L.map(
+                "map_d87f91b15578f262f15e287dbca6611f",
+                {
+                    center: [40.7, -73.93],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_843486df93656aa874b203d6c58a1db8 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri World Imagery",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_843486df93656aa874b203d6c58a1db8.addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+            var tile_layer_6bbb9c22b0386dd37090c9e404c015f3 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_6bbb9c22b0386dd37090c9e404c015f3.addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+            var circle_marker_ad99eb1538205504a676f881cf699462 = L.circleMarker(
+                [40.76317, -73.75175],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_f43b22c17bdfa7ee130b7978caf79fec = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_417ab1bb200e7c10e105588a8db0a96c = $(`<div id="html_417ab1bb200e7c10e105588a8db0a96c" style="width: 100.0%; height: 100.0%;"><b>AC1</b> (Alley Creek)<br>type: creek<br>samples: 195<br>same-day matchups: 41</div>`)[0];
+                popup_f43b22c17bdfa7ee130b7978caf79fec.setContent(html_417ab1bb200e7c10e105588a8db0a96c);
+            
+        
+
+        circle_marker_ad99eb1538205504a676f881cf699462.bindPopup(popup_f43b22c17bdfa7ee130b7978caf79fec)
+        ;
+
+        
+    
+    
+            circle_marker_ad99eb1538205504a676f881cf699462.bindTooltip(
+                `<div>
+                     AC1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d59274522cdef660a04bd6e2d994079d = L.circleMarker(
+                [40.7619, -73.75101],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_4a015e5d61e92a863f38e643175bb8e7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4ffd769d634b0e34ac1d1b57d284dba5 = $(`<div id="html_4ffd769d634b0e34ac1d1b57d284dba5" style="width: 100.0%; height: 100.0%;"><b>AC2</b> (Alley Creek)<br>type: creek<br>samples: 144<br>same-day matchups: 29</div>`)[0];
+                popup_4a015e5d61e92a863f38e643175bb8e7.setContent(html_4ffd769d634b0e34ac1d1b57d284dba5);
+            
+        
+
+        circle_marker_d59274522cdef660a04bd6e2d994079d.bindPopup(popup_4a015e5d61e92a863f38e643175bb8e7)
+        ;
+
+        
+    
+    
+            circle_marker_d59274522cdef660a04bd6e2d994079d.bindTooltip(
+                `<div>
+                     AC2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b634f7b3ae1a1a6f9a36786399014bc = L.circleMarker(
+                [40.66004, -73.82216],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_3cc8c05aed8719982c0e0c0091ea0ba6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_be073b7bdd3c9d1e12ef0d78acb3c33a = $(`<div id="html_be073b7bdd3c9d1e12ef0d78acb3c33a" style="width: 100.0%; height: 100.0%;"><b>BB2</b> (Bergen Basin)<br>type: creek<br>samples: 215<br>same-day matchups: 55</div>`)[0];
+                popup_3cc8c05aed8719982c0e0c0091ea0ba6.setContent(html_be073b7bdd3c9d1e12ef0d78acb3c33a);
+            
+        
+
+        circle_marker_3b634f7b3ae1a1a6f9a36786399014bc.bindPopup(popup_3cc8c05aed8719982c0e0c0091ea0ba6)
+        ;
+
+        
+    
+    
+            circle_marker_3b634f7b3ae1a1a6f9a36786399014bc.bindTooltip(
+                `<div>
+                     BB2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c80af1dd9d9d621c87c636064ff5f27d = L.circleMarker(
+                [40.65164, -73.82316],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_82f5ae33c68cf897aa19d444db1a2c0c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7283a1ecd45c8c7699fabb288abb0037 = $(`<div id="html_7283a1ecd45c8c7699fabb288abb0037" style="width: 100.0%; height: 100.0%;"><b>BB4</b> (Bergen Basin)<br>type: creek<br>samples: 235<br>same-day matchups: 59</div>`)[0];
+                popup_82f5ae33c68cf897aa19d444db1a2c0c.setContent(html_7283a1ecd45c8c7699fabb288abb0037);
+            
+        
+
+        circle_marker_c80af1dd9d9d621c87c636064ff5f27d.bindPopup(popup_82f5ae33c68cf897aa19d444db1a2c0c)
+        ;
+
+        
+    
+    
+            circle_marker_c80af1dd9d9d621c87c636064ff5f27d.bindTooltip(
+                `<div>
+                     BB4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ab20d52cbaf60e9348a246c7cc8022e = L.circleMarker(
+                [40.89314, -73.86271],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_a13aa56d335951159a3ae5994ca24c08 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_53f63ae2cb9eaf0086b2123a94f815ac = $(`<div id="html_53f63ae2cb9eaf0086b2123a94f815ac" style="width: 100.0%; height: 100.0%;"><b>BR1</b> (Bronx River)<br>type: creek<br>samples: 213<br>same-day matchups: 43</div>`)[0];
+                popup_a13aa56d335951159a3ae5994ca24c08.setContent(html_53f63ae2cb9eaf0086b2123a94f815ac);
+            
+        
+
+        circle_marker_3ab20d52cbaf60e9348a246c7cc8022e.bindPopup(popup_a13aa56d335951159a3ae5994ca24c08)
+        ;
+
+        
+    
+    
+            circle_marker_3ab20d52cbaf60e9348a246c7cc8022e.bindTooltip(
+                `<div>
+                     BR1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1efb6b7f50db7ea09b391d1bdc5c0638 = L.circleMarker(
+                [40.82537, -73.8848],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_57d673d863d3d5eefe1d5a0d5ed22910 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_007acdd1a6796a80036e0c1f74973448 = $(`<div id="html_007acdd1a6796a80036e0c1f74973448" style="width: 100.0%; height: 100.0%;"><b>BR3</b> (Bronx River)<br>type: creek<br>samples: 206<br>same-day matchups: 46</div>`)[0];
+                popup_57d673d863d3d5eefe1d5a0d5ed22910.setContent(html_007acdd1a6796a80036e0c1f74973448);
+            
+        
+
+        circle_marker_1efb6b7f50db7ea09b391d1bdc5c0638.bindPopup(popup_57d673d863d3d5eefe1d5a0d5ed22910)
+        ;
+
+        
+    
+    
+            circle_marker_1efb6b7f50db7ea09b391d1bdc5c0638.bindTooltip(
+                `<div>
+                     BR3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f7e907f5e7823ea187169b5fbcb022a = L.circleMarker(
+                [40.81367, -73.87133],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_35e5a9e59c39ef2b8967ffe07aafe911 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ea91002861eb7815d950c87563c02875 = $(`<div id="html_ea91002861eb7815d950c87563c02875" style="width: 100.0%; height: 100.0%;"><b>BR5</b> (Bronx River)<br>type: creek<br>samples: 230<br>same-day matchups: 44</div>`)[0];
+                popup_35e5a9e59c39ef2b8967ffe07aafe911.setContent(html_ea91002861eb7815d950c87563c02875);
+            
+        
+
+        circle_marker_0f7e907f5e7823ea187169b5fbcb022a.bindPopup(popup_35e5a9e59c39ef2b8967ffe07aafe911)
+        ;
+
+        
+    
+    
+            circle_marker_0f7e907f5e7823ea187169b5fbcb022a.bindTooltip(
+                `<div>
+                     BR5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c256f84ceccd30bdb4c2acc431c07ab = L.circleMarker(
+                [40.58167, -73.98564],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_123c4484fc6b7db635d28ffdeb303b4e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9f86724e7efea2a4b85c8c793931533f = $(`<div id="html_9f86724e7efea2a4b85c8c793931533f" style="width: 100.0%; height: 100.0%;"><b>CIC2</b> (Coney Island Creek)<br>type: creek<br>samples: 196<br>same-day matchups: 40</div>`)[0];
+                popup_123c4484fc6b7db635d28ffdeb303b4e.setContent(html_9f86724e7efea2a4b85c8c793931533f);
+            
+        
+
+        circle_marker_0c256f84ceccd30bdb4c2acc431c07ab.bindPopup(popup_123c4484fc6b7db635d28ffdeb303b4e)
+        ;
+
+        
+    
+    
+            circle_marker_0c256f84ceccd30bdb4c2acc431c07ab.bindTooltip(
+                `<div>
+                     CIC2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f0f3212166aef328f17260d03785230f = L.circleMarker(
+                [40.58033, -73.99417],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_53c06de02d623d6c437b0e74b39f6df7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_28c55c0c3685de114d2db03daf764698 = $(`<div id="html_28c55c0c3685de114d2db03daf764698" style="width: 100.0%; height: 100.0%;"><b>CIC3</b> (Coney Island Creek)<br>type: creek<br>samples: 205<br>same-day matchups: 43</div>`)[0];
+                popup_53c06de02d623d6c437b0e74b39f6df7.setContent(html_28c55c0c3685de114d2db03daf764698);
+            
+        
+
+        circle_marker_f0f3212166aef328f17260d03785230f.bindPopup(popup_53c06de02d623d6c437b0e74b39f6df7)
+        ;
+
+        
+    
+    
+            circle_marker_f0f3212166aef328f17260d03785230f.bindTooltip(
+                `<div>
+                     CIC3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b9047183a3d2dd54db663712f93c373 = L.circleMarker(
+                [40.84367, -73.76533],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c48f06876482f00727ee4751d761a4bd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_71d491b529066c615a2658ab67f9c724 = $(`<div id="html_71d491b529066c615a2658ab67f9c724" style="width: 100.0%; height: 100.0%;"><b>E10</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 219<br>same-day matchups: 41</div>`)[0];
+                popup_c48f06876482f00727ee4751d761a4bd.setContent(html_71d491b529066c615a2658ab67f9c724);
+            
+        
+
+        circle_marker_3b9047183a3d2dd54db663712f93c373.bindPopup(popup_c48f06876482f00727ee4751d761a4bd)
+        ;
+
+        
+    
+    
+            circle_marker_3b9047183a3d2dd54db663712f93c373.bindTooltip(
+                `<div>
+                     E10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_02974567d2a6523f876c157e34998bc9 = L.circleMarker(
+                [40.7875, -73.76333],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_6e84253107fdbb376485f45079c66c5c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a65931d8e9f9436e4523b13452e21ce9 = $(`<div id="html_a65931d8e9f9436e4523b13452e21ce9" style="width: 100.0%; height: 100.0%;"><b>E11</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 238<br>same-day matchups: 43</div>`)[0];
+                popup_6e84253107fdbb376485f45079c66c5c.setContent(html_a65931d8e9f9436e4523b13452e21ce9);
+            
+        
+
+        circle_marker_02974567d2a6523f876c157e34998bc9.bindPopup(popup_6e84253107fdbb376485f45079c66c5c)
+        ;
+
+        
+    
+    
+            circle_marker_02974567d2a6523f876c157e34998bc9.bindTooltip(
+                `<div>
+                     E11
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d31acbfec79a8c6d0f6819d28a66c11e = L.circleMarker(
+                [40.85444, -73.8094],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_18a6841b2f7c04ce7b81fc06eaf101d7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_00482ee56ff6e507d31825da125df634 = $(`<div id="html_00482ee56ff6e507d31825da125df634" style="width: 100.0%; height: 100.0%;"><b>E12</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 219<br>same-day matchups: 43</div>`)[0];
+                popup_18a6841b2f7c04ce7b81fc06eaf101d7.setContent(html_00482ee56ff6e507d31825da125df634);
+            
+        
+
+        circle_marker_d31acbfec79a8c6d0f6819d28a66c11e.bindPopup(popup_18a6841b2f7c04ce7b81fc06eaf101d7)
+        ;
+
+        
+    
+    
+            circle_marker_d31acbfec79a8c6d0f6819d28a66c11e.bindTooltip(
+                `<div>
+                     E12
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_478f00ad7f7886a798cf8c26de824a68 = L.circleMarker(
+                [40.80611, -73.84111],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_db2d4b43e4a5e8481f1985e57ec06ca9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_517774eb4ac89369f40be22ad5ba3763 = $(`<div id="html_517774eb4ac89369f40be22ad5ba3763" style="width: 100.0%; height: 100.0%;"><b>E13</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 222<br>same-day matchups: 44</div>`)[0];
+                popup_db2d4b43e4a5e8481f1985e57ec06ca9.setContent(html_517774eb4ac89369f40be22ad5ba3763);
+            
+        
+
+        circle_marker_478f00ad7f7886a798cf8c26de824a68.bindPopup(popup_db2d4b43e4a5e8481f1985e57ec06ca9)
+        ;
+
+        
+    
+    
+            circle_marker_478f00ad7f7886a798cf8c26de824a68.bindTooltip(
+                `<div>
+                     E13
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a8543ecef367c7f3a2bd150308710285 = L.circleMarker(
+                [40.80083, -73.8645],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_2231bf505378f41068dd8bb9b6ba5eff = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b9f9bba074f92fb39f0dbb19044fbf78 = $(`<div id="html_b9f9bba074f92fb39f0dbb19044fbf78" style="width: 100.0%; height: 100.0%;"><b>E14</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 240<br>same-day matchups: 45</div>`)[0];
+                popup_2231bf505378f41068dd8bb9b6ba5eff.setContent(html_b9f9bba074f92fb39f0dbb19044fbf78);
+            
+        
+
+        circle_marker_a8543ecef367c7f3a2bd150308710285.bindPopup(popup_2231bf505378f41068dd8bb9b6ba5eff)
+        ;
+
+        
+    
+    
+            circle_marker_a8543ecef367c7f3a2bd150308710285.bindTooltip(
+                `<div>
+                     E14
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b9a38a7d68f9c2e9e2de5084ba449876 = L.circleMarker(
+                [40.763, -73.8495],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_efa3ae91a1d0c8115993bc14b2f6346c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3a5111c256e37bc5a62812551714202f = $(`<div id="html_3a5111c256e37bc5a62812551714202f" style="width: 100.0%; height: 100.0%;"><b>E15</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 239<br>same-day matchups: 41</div>`)[0];
+                popup_efa3ae91a1d0c8115993bc14b2f6346c.setContent(html_3a5111c256e37bc5a62812551714202f);
+            
+        
+
+        circle_marker_b9a38a7d68f9c2e9e2de5084ba449876.bindPopup(popup_efa3ae91a1d0c8115993bc14b2f6346c)
+        ;
+
+        
+    
+    
+            circle_marker_b9a38a7d68f9c2e9e2de5084ba449876.bindTooltip(
+                `<div>
+                     E15
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3333621b2f8cb63a1ed5d2d39bf4666e = L.circleMarker(
+                [40.73533, -73.97],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_ca2a683b0763d3ce0e3b505afa96773a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a841f98a4e57acbe13d8383407ed667a = $(`<div id="html_a841f98a4e57acbe13d8383407ed667a" style="width: 100.0%; height: 100.0%;"><b>E2</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 262<br>same-day matchups: 44</div>`)[0];
+                popup_ca2a683b0763d3ce0e3b505afa96773a.setContent(html_a841f98a4e57acbe13d8383407ed667a);
+            
+        
+
+        circle_marker_3333621b2f8cb63a1ed5d2d39bf4666e.bindPopup(popup_ca2a683b0763d3ce0e3b505afa96773a)
+        ;
+
+        
+    
+    
+            circle_marker_3333621b2f8cb63a1ed5d2d39bf4666e.bindTooltip(
+                `<div>
+                     E2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_592ee5101383f1458744bc27386a6e1b = L.circleMarker(
+                [40.7825, -73.922],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_924ba02ee24951de6f88e2ae342ec557 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c02b5fd45f97b5adb99ac950fbb18777 = $(`<div id="html_c02b5fd45f97b5adb99ac950fbb18777" style="width: 100.0%; height: 100.0%;"><b>E4</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 260<br>same-day matchups: 50</div>`)[0];
+                popup_924ba02ee24951de6f88e2ae342ec557.setContent(html_c02b5fd45f97b5adb99ac950fbb18777);
+            
+        
+
+        circle_marker_592ee5101383f1458744bc27386a6e1b.bindPopup(popup_924ba02ee24951de6f88e2ae342ec557)
+        ;
+
+        
+    
+    
+            circle_marker_592ee5101383f1458744bc27386a6e1b.bindTooltip(
+                `<div>
+                     E4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7b544fd2bff4066b930ae52c3db25a84 = L.circleMarker(
+                [40.7855, -73.86083],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_e886d4b430d94615141bfc2754b8f16c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_509da8527c0fb8b270b4d5a1e36ea30e = $(`<div id="html_509da8527c0fb8b270b4d5a1e36ea30e" style="width: 100.0%; height: 100.0%;"><b>E6</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 259<br>same-day matchups: 46</div>`)[0];
+                popup_e886d4b430d94615141bfc2754b8f16c.setContent(html_509da8527c0fb8b270b4d5a1e36ea30e);
+            
+        
+
+        circle_marker_7b544fd2bff4066b930ae52c3db25a84.bindPopup(popup_e886d4b430d94615141bfc2754b8f16c)
+        ;
+
+        
+    
+    
+            circle_marker_7b544fd2bff4066b930ae52c3db25a84.bindTooltip(
+                `<div>
+                     E6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_00a9b59736f48cce51122a8db66a1696 = L.circleMarker(
+                [40.805, -73.8205],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_13733f964f55a617883c063841938a0a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_07da993f1f4ef6f377f6c3c96af85f27 = $(`<div id="html_07da993f1f4ef6f377f6c3c96af85f27" style="width: 100.0%; height: 100.0%;"><b>E7</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 258<br>same-day matchups: 48</div>`)[0];
+                popup_13733f964f55a617883c063841938a0a.setContent(html_07da993f1f4ef6f377f6c3c96af85f27);
+            
+        
+
+        circle_marker_00a9b59736f48cce51122a8db66a1696.bindPopup(popup_13733f964f55a617883c063841938a0a)
+        ;
+
+        
+    
+    
+            circle_marker_00a9b59736f48cce51122a8db66a1696.bindTooltip(
+                `<div>
+                     E7
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_087ba1bb456cef96659a23a4e705871b = L.circleMarker(
+                [40.8005, -73.78367],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_319a55226a3d7457d2a4a4110ae5a457 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6d2a1ee4bf78a53fafa6bcd76abce603 = $(`<div id="html_6d2a1ee4bf78a53fafa6bcd76abce603" style="width: 100.0%; height: 100.0%;"><b>E8</b> (East River / Western Long Island Sound)<br>type: open<br>samples: 255<br>same-day matchups: 49</div>`)[0];
+                popup_319a55226a3d7457d2a4a4110ae5a457.setContent(html_6d2a1ee4bf78a53fafa6bcd76abce603);
+            
+        
+
+        circle_marker_087ba1bb456cef96659a23a4e705871b.bindPopup(popup_319a55226a3d7457d2a4a4110ae5a457)
+        ;
+
+        
+    
+    
+            circle_marker_087ba1bb456cef96659a23a4e705871b.bindTooltip(
+                `<div>
+                     E8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4b719c656d9eb60002b5c6a4de95e70d = L.circleMarker(
+                [40.64315, -73.88413],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_78cf6afe1fcfe7f6f6785e3e79af8e64 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6e3e12a60622ec53235bc4a33241bebc = $(`<div id="html_6e3e12a60622ec53235bc4a33241bebc" style="width: 100.0%; height: 100.0%;"><b>F1</b> (Fresh Creek)<br>type: creek<br>samples: 188<br>same-day matchups: 36</div>`)[0];
+                popup_78cf6afe1fcfe7f6f6785e3e79af8e64.setContent(html_6e3e12a60622ec53235bc4a33241bebc);
+            
+        
+
+        circle_marker_4b719c656d9eb60002b5c6a4de95e70d.bindPopup(popup_78cf6afe1fcfe7f6f6785e3e79af8e64)
+        ;
+
+        
+    
+    
+            circle_marker_4b719c656d9eb60002b5c6a4de95e70d.bindTooltip(
+                `<div>
+                     F1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eeab87739167aa075bf1d9c85db04b9b = L.circleMarker(
+                [40.63878, -73.87896],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_d9ce8902af66e0d9936fa1f14aad3ceb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5456a094c869c42711f526bba9efbf47 = $(`<div id="html_5456a094c869c42711f526bba9efbf47" style="width: 100.0%; height: 100.0%;"><b>F5</b> (Fresh Creek)<br>type: creek<br>samples: 188<br>same-day matchups: 36</div>`)[0];
+                popup_d9ce8902af66e0d9936fa1f14aad3ceb.setContent(html_5456a094c869c42711f526bba9efbf47);
+            
+        
+
+        circle_marker_eeab87739167aa075bf1d9c85db04b9b.bindPopup(popup_d9ce8902af66e0d9936fa1f14aad3ceb)
+        ;
+
+        
+    
+    
+            circle_marker_eeab87739167aa075bf1d9c85db04b9b.bindTooltip(
+                `<div>
+                     F5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_12744912cbc1a8e33861e1fcd2426daa = L.circleMarker(
+                [40.77204, -73.85306],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_3da0738fcf5627669abadf192be15f5c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fc4987b57218fbc241d0f135e68a5f34 = $(`<div id="html_fc4987b57218fbc241d0f135e68a5f34" style="width: 100.0%; height: 100.0%;"><b>FB1</b> (Flushing Bay)<br>type: open<br>samples: 239<br>same-day matchups: 43</div>`)[0];
+                popup_3da0738fcf5627669abadf192be15f5c.setContent(html_fc4987b57218fbc241d0f135e68a5f34);
+            
+        
+
+        circle_marker_12744912cbc1a8e33861e1fcd2426daa.bindPopup(popup_3da0738fcf5627669abadf192be15f5c)
+        ;
+
+        
+    
+    
+            circle_marker_12744912cbc1a8e33861e1fcd2426daa.bindTooltip(
+                `<div>
+                     FB1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3753be81903725f9456f5e3fd4dddf60 = L.circleMarker(
+                [40.76217, -73.83667],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_0ed061ae13360ab8d7948cb9d7c9f2c0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ef12dcd5795db58f7d26e17909827d5b = $(`<div id="html_ef12dcd5795db58f7d26e17909827d5b" style="width: 100.0%; height: 100.0%;"><b>FLC1</b> (Flushing Creek)<br>type: creek<br>samples: 236<br>same-day matchups: 45</div>`)[0];
+                popup_0ed061ae13360ab8d7948cb9d7c9f2c0.setContent(html_ef12dcd5795db58f7d26e17909827d5b);
+            
+        
+
+        circle_marker_3753be81903725f9456f5e3fd4dddf60.bindPopup(popup_0ed061ae13360ab8d7948cb9d7c9f2c0)
+        ;
+
+        
+    
+    
+            circle_marker_3753be81903725f9456f5e3fd4dddf60.bindTooltip(
+                `<div>
+                     FLC1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3701207af3baf630c18a980dd5272e72 = L.circleMarker(
+                [40.765, -73.84283],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_3008d4668c68f813de4b735200c9641f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_60a58e703c8e09e381194b5990e2c6f9 = $(`<div id="html_60a58e703c8e09e381194b5990e2c6f9" style="width: 100.0%; height: 100.0%;"><b>FLC2</b> (Flushing Creek)<br>type: creek<br>samples: 239<br>same-day matchups: 46</div>`)[0];
+                popup_3008d4668c68f813de4b735200c9641f.setContent(html_60a58e703c8e09e381194b5990e2c6f9);
+            
+        
+
+        circle_marker_3701207af3baf630c18a980dd5272e72.bindPopup(popup_3008d4668c68f813de4b735200c9641f)
+        ;
+
+        
+    
+    
+            circle_marker_3701207af3baf630c18a980dd5272e72.bindTooltip(
+                `<div>
+                     FLC2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fe85a6e8408cdae403ef7b994785015a = L.circleMarker(
+                [40.66667, -74.00333],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c05c30759618e32309bf4fd27a67416a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aad21ebb6a4b25463bf3e48fdf90dc8b = $(`<div id="html_aad21ebb6a4b25463bf3e48fdf90dc8b" style="width: 100.0%; height: 100.0%;"><b>G2</b> (Upper Bay (Gowanus Bay))<br>type: creek<br>samples: 220<br>same-day matchups: 48</div>`)[0];
+                popup_c05c30759618e32309bf4fd27a67416a.setContent(html_aad21ebb6a4b25463bf3e48fdf90dc8b);
+            
+        
+
+        circle_marker_fe85a6e8408cdae403ef7b994785015a.bindPopup(popup_c05c30759618e32309bf4fd27a67416a)
+        ;
+
+        
+    
+    
+            circle_marker_fe85a6e8408cdae403ef7b994785015a.bindTooltip(
+                `<div>
+                     G2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8dc7d25855530a62fab1d0afd1320357 = L.circleMarker(
+                [40.6, -74.01367],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_9072ec724e5d62873c1130ed8168033c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0da80a4862541e2cdae0dc7373950e1a = $(`<div id="html_0da80a4862541e2cdae0dc7373950e1a" style="width: 100.0%; height: 100.0%;"><b>GB1</b> (Gravesend Bay)<br>type: open<br>samples: 211<br>same-day matchups: 48</div>`)[0];
+                popup_9072ec724e5d62873c1130ed8168033c.setContent(html_0da80a4862541e2cdae0dc7373950e1a);
+            
+        
+
+        circle_marker_8dc7d25855530a62fab1d0afd1320357.bindPopup(popup_9072ec724e5d62873c1130ed8168033c)
+        ;
+
+        
+    
+    
+            circle_marker_8dc7d25855530a62fab1d0afd1320357.bindTooltip(
+                `<div>
+                     GB1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_105e9551c7084e7f5c0a953f35c9c76f = L.circleMarker(
+                [40.67943, -73.98824],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_393162a236d8b1ca47806d3b7f0a7a6d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_805affd8ce85de4454c8f6a60ec5945f = $(`<div id="html_805affd8ce85de4454c8f6a60ec5945f" style="width: 100.0%; height: 100.0%;"><b>GC3</b> (Gowanus Canal)<br>type: creek<br>samples: 186<br>same-day matchups: 38</div>`)[0];
+                popup_393162a236d8b1ca47806d3b7f0a7a6d.setContent(html_805affd8ce85de4454c8f6a60ec5945f);
+            
+        
+
+        circle_marker_105e9551c7084e7f5c0a953f35c9c76f.bindPopup(popup_393162a236d8b1ca47806d3b7f0a7a6d)
+        ;
+
+        
+    
+    
+            circle_marker_105e9551c7084e7f5c0a953f35c9c76f.bindTooltip(
+                `<div>
+                     GC3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3e7432ac6bb89e47595e147a71ad476d = L.circleMarker(
+                [40.67803, -73.98907],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_53dc497360ff1598814a40a51abbb07f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_14f3a9d80699a42a1e3a7d504ca4a7e1 = $(`<div id="html_14f3a9d80699a42a1e3a7d504ca4a7e1" style="width: 100.0%; height: 100.0%;"><b>GC4</b> (Gowanus Canal)<br>type: creek<br>samples: 138<br>same-day matchups: 23</div>`)[0];
+                popup_53dc497360ff1598814a40a51abbb07f.setContent(html_14f3a9d80699a42a1e3a7d504ca4a7e1);
+            
+        
+
+        circle_marker_3e7432ac6bb89e47595e147a71ad476d.bindPopup(popup_53dc497360ff1598814a40a51abbb07f)
+        ;
+
+        
+    
+    
+            circle_marker_3e7432ac6bb89e47595e147a71ad476d.bindTooltip(
+                `<div>
+                     GC4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1bea84737951ca81383b80c9de849e58 = L.circleMarker(
+                [40.67614, -73.99005],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_06f6fed441393054e4b417ba3d0d2a3b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_552cc61f34371182bcc8d8ca3931ce46 = $(`<div id="html_552cc61f34371182bcc8d8ca3931ce46" style="width: 100.0%; height: 100.0%;"><b>GC5</b> (Gowanus Canal)<br>type: creek<br>samples: 188<br>same-day matchups: 40</div>`)[0];
+                popup_06f6fed441393054e4b417ba3d0d2a3b.setContent(html_552cc61f34371182bcc8d8ca3931ce46);
+            
+        
+
+        circle_marker_1bea84737951ca81383b80c9de849e58.bindPopup(popup_06f6fed441393054e4b417ba3d0d2a3b)
+        ;
+
+        
+    
+    
+            circle_marker_1bea84737951ca81383b80c9de849e58.bindTooltip(
+                `<div>
+                     GC5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_95642ca4723b4adc5e44c045a450d3e5 = L.circleMarker(
+                [40.67417, -73.99639],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_5a8bb87b70cb24a4f03a6e9e1e1d9729 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_45492b5a3a82b441e8120c5e5718a3a7 = $(`<div id="html_45492b5a3a82b441e8120c5e5718a3a7" style="width: 100.0%; height: 100.0%;"><b>GC6</b> (Gowanus Canal)<br>type: creek<br>samples: 175<br>same-day matchups: 33</div>`)[0];
+                popup_5a8bb87b70cb24a4f03a6e9e1e1d9729.setContent(html_45492b5a3a82b441e8120c5e5718a3a7);
+            
+        
+
+        circle_marker_95642ca4723b4adc5e44c045a450d3e5.bindPopup(popup_5a8bb87b70cb24a4f03a6e9e1e1d9729)
+        ;
+
+        
+    
+    
+            circle_marker_95642ca4723b4adc5e44c045a450d3e5.bindTooltip(
+                `<div>
+                     GC6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_39e1849af271de3b4db5bb68e464a388 = L.circleMarker(
+                [40.612833, -73.778],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_6ab2f487e719ac74e4c20092da17bd15 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3e754b30de6d3229ad5644dff1d6903d = $(`<div id="html_3e754b30de6d3229ad5644dff1d6903d" style="width: 100.0%; height: 100.0%;"><b>GHC</b> (Jamaica Bay channel)<br>type: open<br>samples: 77<br>same-day matchups: 10</div>`)[0];
+                popup_6ab2f487e719ac74e4c20092da17bd15.setContent(html_3e754b30de6d3229ad5644dff1d6903d);
+            
+        
+
+        circle_marker_39e1849af271de3b4db5bb68e464a388.bindPopup(popup_6ab2f487e719ac74e4c20092da17bd15)
+        ;
+
+        
+    
+    
+            circle_marker_39e1849af271de3b4db5bb68e464a388.bindTooltip(
+                `<div>
+                     GHC
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8622e3adcb15ea5c13c605ab1eff818f = L.circleMarker(
+                [40.828, -73.93383],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_60ae042a6b12f063067e02574332d071 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6cc9c3408bafdb38edcc80ceff522cb3 = $(`<div id="html_6cc9c3408bafdb38edcc80ceff522cb3" style="width: 100.0%; height: 100.0%;"><b>H3</b> (Harlem River)<br>type: creek<br>samples: 250<br>same-day matchups: 48</div>`)[0];
+                popup_60ae042a6b12f063067e02574332d071.setContent(html_6cc9c3408bafdb38edcc80ceff522cb3);
+            
+        
+
+        circle_marker_8622e3adcb15ea5c13c605ab1eff818f.bindPopup(popup_60ae042a6b12f063067e02574332d071)
+        ;
+
+        
+    
+    
+            circle_marker_8622e3adcb15ea5c13c605ab1eff818f.bindTooltip(
+                `<div>
+                     H3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8e41e4e36ee66b1638bf167f41762168 = L.circleMarker(
+                [40.65359, -73.87891],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_4528bd99b99032df7a128f34f0c8a039 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2c1837402423a61280b89a65e95bba38 = $(`<div id="html_2c1837402423a61280b89a65e95bba38" style="width: 100.0%; height: 100.0%;"><b>HC1</b> (Hendrix Creek)<br>type: creek<br>samples: 191<br>same-day matchups: 37</div>`)[0];
+                popup_4528bd99b99032df7a128f34f0c8a039.setContent(html_2c1837402423a61280b89a65e95bba38);
+            
+        
+
+        circle_marker_8e41e4e36ee66b1638bf167f41762168.bindPopup(popup_4528bd99b99032df7a128f34f0c8a039)
+        ;
+
+        
+    
+    
+            circle_marker_8e41e4e36ee66b1638bf167f41762168.bindTooltip(
+                `<div>
+                     HC1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e86af2b02b8f302c85340f39d539fc34 = L.circleMarker(
+                [40.65078, -73.87684],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_5af33170bb9124fa8b85dfe66cd4fe50 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cbd3405b3e6d31f8c90e0e75c2b6f35b = $(`<div id="html_cbd3405b3e6d31f8c90e0e75c2b6f35b" style="width: 100.0%; height: 100.0%;"><b>HC2</b> (Hendrix Creek)<br>type: creek<br>samples: 191<br>same-day matchups: 40</div>`)[0];
+                popup_5af33170bb9124fa8b85dfe66cd4fe50.setContent(html_cbd3405b3e6d31f8c90e0e75c2b6f35b);
+            
+        
+
+        circle_marker_e86af2b02b8f302c85340f39d539fc34.bindPopup(popup_5af33170bb9124fa8b85dfe66cd4fe50)
+        ;
+
+        
+    
+    
+            circle_marker_e86af2b02b8f302c85340f39d539fc34.bindTooltip(
+                `<div>
+                     HC2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e0b15487e6b3ad3753ef51bedf2b3b2c = L.circleMarker(
+                [40.64672, -73.87356],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_61326d3e007658416224c868c37ec54c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ee7a8f692af0c2e4aa98fe2934f4a880 = $(`<div id="html_ee7a8f692af0c2e4aa98fe2934f4a880" style="width: 100.0%; height: 100.0%;"><b>HC3</b> (Hendrix Creek)<br>type: creek<br>samples: 211<br>same-day matchups: 40</div>`)[0];
+                popup_61326d3e007658416224c868c37ec54c.setContent(html_ee7a8f692af0c2e4aa98fe2934f4a880);
+            
+        
+
+        circle_marker_e0b15487e6b3ad3753ef51bedf2b3b2c.bindPopup(popup_61326d3e007658416224c868c37ec54c)
+        ;
+
+        
+    
+    
+            circle_marker_e0b15487e6b3ad3753ef51bedf2b3b2c.bindTooltip(
+                `<div>
+                     HC3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_80655774f4e81d8b30178a43a59ddbac = L.circleMarker(
+                [40.630667, -73.755833],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_5b0f432227ce80593fbb0aa691869864 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_607d0c74c1245292e941d50f470e971b = $(`<div id="html_607d0c74c1245292e941d50f470e971b" style="width: 100.0%; height: 100.0%;"><b>HOB</b> (Jamaica Bay (head of bay))<br>type: open<br>samples: 74<br>same-day matchups: 9</div>`)[0];
+                popup_5b0f432227ce80593fbb0aa691869864.setContent(html_607d0c74c1245292e941d50f470e971b);
+            
+        
+
+        circle_marker_80655774f4e81d8b30178a43a59ddbac.bindPopup(popup_5b0f432227ce80593fbb0aa691869864)
+        ;
+
+        
+    
+    
+            circle_marker_80655774f4e81d8b30178a43a59ddbac.bindTooltip(
+                `<div>
+                     HOB
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9f9cb1c839d5d71c905533e8139afd31 = L.circleMarker(
+                [40.88087, -73.82087],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_e31d76e756bcfb1b811311641f8a05b5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2c8dfb438cdbe3c0bcc14e47ddf8ecb8 = $(`<div id="html_2c8dfb438cdbe3c0bcc14e47ddf8ecb8" style="width: 100.0%; height: 100.0%;"><b>HR03</b> (Hutchinson River)<br>type: creek<br>samples: 210<br>same-day matchups: 44</div>`)[0];
+                popup_e31d76e756bcfb1b811311641f8a05b5.setContent(html_2c8dfb438cdbe3c0bcc14e47ddf8ecb8);
+            
+        
+
+        circle_marker_9f9cb1c839d5d71c905533e8139afd31.bindPopup(popup_e31d76e756bcfb1b811311641f8a05b5)
+        ;
+
+        
+    
+    
+            circle_marker_9f9cb1c839d5d71c905533e8139afd31.bindTooltip(
+                `<div>
+                     HR03
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_382cc8c9a29af3561fec036fcd3849a9 = L.circleMarker(
+                [40.8687, -73.8213],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c2a8cf32f215de866023d9526609a403 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d3b36f63f32c4ff3e8970294df6e6847 = $(`<div id="html_d3b36f63f32c4ff3e8970294df6e6847" style="width: 100.0%; height: 100.0%;"><b>HR1</b> (Hutchinson River)<br>type: creek<br>samples: 211<br>same-day matchups: 42</div>`)[0];
+                popup_c2a8cf32f215de866023d9526609a403.setContent(html_d3b36f63f32c4ff3e8970294df6e6847);
+            
+        
+
+        circle_marker_382cc8c9a29af3561fec036fcd3849a9.bindPopup(popup_c2a8cf32f215de866023d9526609a403)
+        ;
+
+        
+    
+    
+            circle_marker_382cc8c9a29af3561fec036fcd3849a9.bindTooltip(
+                `<div>
+                     HR1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ca680c1fa96d66dc94efd480aeb068a4 = L.circleMarker(
+                [40.88791, -73.82403],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_ba7a7d43a9b0f79139dd8d72b1d27c71 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1e709d7c3c84565c4682c76903112d94 = $(`<div id="html_1e709d7c3c84565c4682c76903112d94" style="width: 100.0%; height: 100.0%;"><b>HR2</b> (Hutchinson River)<br>type: creek<br>samples: 209<br>same-day matchups: 47</div>`)[0];
+                popup_ba7a7d43a9b0f79139dd8d72b1d27c71.setContent(html_1e709d7c3c84565c4682c76903112d94);
+            
+        
+
+        circle_marker_ca680c1fa96d66dc94efd480aeb068a4.bindPopup(popup_ba7a7d43a9b0f79139dd8d72b1d27c71)
+        ;
+
+        
+    
+    
+            circle_marker_ca680c1fa96d66dc94efd480aeb068a4.bindTooltip(
+                `<div>
+                     HR2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_244a605c1894d6de19b2a77f2a28287b = L.circleMarker(
+                [40.57333, -73.88467],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_157d354997026ff2eb0ba639aa74ae6a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7f7d330b382bb78ebdaec7a501fe4eec = $(`<div id="html_7f7d330b382bb78ebdaec7a501fe4eec" style="width: 100.0%; height: 100.0%;"><b>J1</b> (Jamaica Bay)<br>type: open<br>samples: 240<br>same-day matchups: 57</div>`)[0];
+                popup_157d354997026ff2eb0ba639aa74ae6a.setContent(html_7f7d330b382bb78ebdaec7a501fe4eec);
+            
+        
+
+        circle_marker_244a605c1894d6de19b2a77f2a28287b.bindPopup(popup_157d354997026ff2eb0ba639aa74ae6a)
+        ;
+
+        
+    
+    
+            circle_marker_244a605c1894d6de19b2a77f2a28287b.bindTooltip(
+                `<div>
+                     J1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_23d26adbee86503133c30fe9a34a9bed = L.circleMarker(
+                [40.62167, -73.89472],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_1c81088515ee9d038221b03e6b42567c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5649cedb019b71a442b6326f0e078afb = $(`<div id="html_5649cedb019b71a442b6326f0e078afb" style="width: 100.0%; height: 100.0%;"><b>J10</b> (Jamaica Bay)<br>type: open<br>samples: 239<br>same-day matchups: 48</div>`)[0];
+                popup_1c81088515ee9d038221b03e6b42567c.setContent(html_5649cedb019b71a442b6326f0e078afb);
+            
+        
+
+        circle_marker_23d26adbee86503133c30fe9a34a9bed.bindPopup(popup_1c81088515ee9d038221b03e6b42567c)
+        ;
+
+        
+    
+    
+            circle_marker_23d26adbee86503133c30fe9a34a9bed.bindTooltip(
+                `<div>
+                     J10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_402625c1c97af771b3dea8195b00261c = L.circleMarker(
+                [40.58167, -73.93133],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_23952de9b8e15e54cba2c7cf7582b6b9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_831559c16d293e513b988e41eff9739d = $(`<div id="html_831559c16d293e513b988e41eff9739d" style="width: 100.0%; height: 100.0%;"><b>J11</b> (Jamaica Bay)<br>type: open<br>samples: 228<br>same-day matchups: 53</div>`)[0];
+                popup_23952de9b8e15e54cba2c7cf7582b6b9.setContent(html_831559c16d293e513b988e41eff9739d);
+            
+        
+
+        circle_marker_402625c1c97af771b3dea8195b00261c.bindPopup(popup_23952de9b8e15e54cba2c7cf7582b6b9)
+        ;
+
+        
+    
+    
+            circle_marker_402625c1c97af771b3dea8195b00261c.bindTooltip(
+                `<div>
+                     J11
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_681164e184a8e572cec43d7fc4222dff = L.circleMarker(
+                [40.633, -73.80633],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_1584e2dbe507a6688c1e553961febe42 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c3309a80517f1d7e09368db61eac5d24 = $(`<div id="html_c3309a80517f1d7e09368db61eac5d24" style="width: 100.0%; height: 100.0%;"><b>J12</b> (Jamaica Bay)<br>type: open<br>samples: 241<br>same-day matchups: 57</div>`)[0];
+                popup_1584e2dbe507a6688c1e553961febe42.setContent(html_c3309a80517f1d7e09368db61eac5d24);
+            
+        
+
+        circle_marker_681164e184a8e572cec43d7fc4222dff.bindPopup(popup_1584e2dbe507a6688c1e553961febe42)
+        ;
+
+        
+    
+    
+            circle_marker_681164e184a8e572cec43d7fc4222dff.bindTooltip(
+                `<div>
+                     J12
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2fbe94f7285f77f58f540a1b14ddcc75 = L.circleMarker(
+                [40.60917, -73.82378],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_117182e1ab3fa5c90c3e333b1c60b28f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1a833614d79711e930051a66599ecd64 = $(`<div id="html_1a833614d79711e930051a66599ecd64" style="width: 100.0%; height: 100.0%;"><b>J14</b> (Jamaica Bay)<br>type: open<br>samples: 206<br>same-day matchups: 41</div>`)[0];
+                popup_117182e1ab3fa5c90c3e333b1c60b28f.setContent(html_1a833614d79711e930051a66599ecd64);
+            
+        
+
+        circle_marker_2fbe94f7285f77f58f540a1b14ddcc75.bindPopup(popup_117182e1ab3fa5c90c3e333b1c60b28f)
+        ;
+
+        
+    
+    
+            circle_marker_2fbe94f7285f77f58f540a1b14ddcc75.bindTooltip(
+                `<div>
+                     J14
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2ee4a07d8b797905047dc914a5add126 = L.circleMarker(
+                [40.609, -73.836167],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_09261be11f5a6723c9193034bfd19431 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_66d631145bf32b33d0c1378ca7646bdd = $(`<div id="html_66d631145bf32b33d0c1378ca7646bdd" style="width: 100.0%; height: 100.0%;"><b>J15</b> (Jamaica Bay)<br>type: open<br>samples: 23<br>same-day matchups: 4</div>`)[0];
+                popup_09261be11f5a6723c9193034bfd19431.setContent(html_66d631145bf32b33d0c1378ca7646bdd);
+            
+        
+
+        circle_marker_2ee4a07d8b797905047dc914a5add126.bindPopup(popup_09261be11f5a6723c9193034bfd19431)
+        ;
+
+        
+    
+    
+            circle_marker_2ee4a07d8b797905047dc914a5add126.bindTooltip(
+                `<div>
+                     J15
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bb7cb92249cf20a4054602935fa8eebf = L.circleMarker(
+                [40.61142, -73.84761],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_7d3dc38d8404c1ba37e9bef80c96eaad = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9662232464dcc922978b4aa4a4b185f6 = $(`<div id="html_9662232464dcc922978b4aa4a4b185f6" style="width: 100.0%; height: 100.0%;"><b>J16</b> (Jamaica Bay)<br>type: open<br>samples: 201<br>same-day matchups: 36</div>`)[0];
+                popup_7d3dc38d8404c1ba37e9bef80c96eaad.setContent(html_9662232464dcc922978b4aa4a4b185f6);
+            
+        
+
+        circle_marker_bb7cb92249cf20a4054602935fa8eebf.bindPopup(popup_7d3dc38d8404c1ba37e9bef80c96eaad)
+        ;
+
+        
+    
+    
+            circle_marker_bb7cb92249cf20a4054602935fa8eebf.bindTooltip(
+                `<div>
+                     J16
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26c41eb39e05d03ba3430f93d141091e = L.circleMarker(
+                [40.6195, -73.84717],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c8b7c08777dda5ba8adbe7637fca232e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f9f323fac5446fcd16f5cad92cd4118f = $(`<div id="html_f9f323fac5446fcd16f5cad92cd4118f" style="width: 100.0%; height: 100.0%;"><b>J18</b> (Jamaica Bay)<br>type: open<br>samples: 165<br>same-day matchups: 34</div>`)[0];
+                popup_c8b7c08777dda5ba8adbe7637fca232e.setContent(html_f9f323fac5446fcd16f5cad92cd4118f);
+            
+        
+
+        circle_marker_26c41eb39e05d03ba3430f93d141091e.bindPopup(popup_c8b7c08777dda5ba8adbe7637fca232e)
+        ;
+
+        
+    
+    
+            circle_marker_26c41eb39e05d03ba3430f93d141091e.bindTooltip(
+                `<div>
+                     J18
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4b82358cb9d6e7d7cbad270e5324db8a = L.circleMarker(
+                [40.60805, -73.88583],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_e35a4f412d797ab9f31c20c3fa9e1b82 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_791fd47f6317e84cc993a1251dbd818f = $(`<div id="html_791fd47f6317e84cc993a1251dbd818f" style="width: 100.0%; height: 100.0%;"><b>J2</b> (Jamaica Bay)<br>type: open<br>samples: 239<br>same-day matchups: 49</div>`)[0];
+                popup_e35a4f412d797ab9f31c20c3fa9e1b82.setContent(html_791fd47f6317e84cc993a1251dbd818f);
+            
+        
+
+        circle_marker_4b82358cb9d6e7d7cbad270e5324db8a.bindPopup(popup_e35a4f412d797ab9f31c20c3fa9e1b82)
+        ;
+
+        
+    
+    
+            circle_marker_4b82358cb9d6e7d7cbad270e5324db8a.bindTooltip(
+                `<div>
+                     J2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cac61fc538b981e176313eb301639769 = L.circleMarker(
+                [40.627, -73.88283],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_53e0acfb8d25f02a721c9768d5ba7710 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e3b20cc919ad190c80662f9408f49c81 = $(`<div id="html_e3b20cc919ad190c80662f9408f49c81" style="width: 100.0%; height: 100.0%;"><b>J3</b> (Jamaica Bay)<br>type: open<br>samples: 238<br>same-day matchups: 52</div>`)[0];
+                popup_53e0acfb8d25f02a721c9768d5ba7710.setContent(html_e3b20cc919ad190c80662f9408f49c81);
+            
+        
+
+        circle_marker_cac61fc538b981e176313eb301639769.bindPopup(popup_53e0acfb8d25f02a721c9768d5ba7710)
+        ;
+
+        
+    
+    
+            circle_marker_cac61fc538b981e176313eb301639769.bindTooltip(
+                `<div>
+                     J3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_63df9c3b17d4c184eed44ff60fcc33ef = L.circleMarker(
+                [40.59767, -73.809],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_4e8cbc571cba27b7e3f7590414cdd76a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fdc9e5cb7667f7a0e23017a04d35aaa9 = $(`<div id="html_fdc9e5cb7667f7a0e23017a04d35aaa9" style="width: 100.0%; height: 100.0%;"><b>J5</b> (Jamaica Bay)<br>type: open<br>samples: 241<br>same-day matchups: 56</div>`)[0];
+                popup_4e8cbc571cba27b7e3f7590414cdd76a.setContent(html_fdc9e5cb7667f7a0e23017a04d35aaa9);
+            
+        
+
+        circle_marker_63df9c3b17d4c184eed44ff60fcc33ef.bindPopup(popup_4e8cbc571cba27b7e3f7590414cdd76a)
+        ;
+
+        
+    
+    
+            circle_marker_63df9c3b17d4c184eed44ff60fcc33ef.bindTooltip(
+                `<div>
+                     J5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7c4bb22581cf7a1ebb8c4f8bc12fb6d4 = L.circleMarker(
+                [40.64533, -73.82083],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_4620510ee6b0c0c4eaa4d0a044ae3687 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0f5df8b8cce91c9c0c7fd3c9d2a37078 = $(`<div id="html_0f5df8b8cce91c9c0c7fd3c9d2a37078" style="width: 100.0%; height: 100.0%;"><b>J7</b> (Jamaica Bay)<br>type: open<br>samples: 242<br>same-day matchups: 60</div>`)[0];
+                popup_4620510ee6b0c0c4eaa4d0a044ae3687.setContent(html_0f5df8b8cce91c9c0c7fd3c9d2a37078);
+            
+        
+
+        circle_marker_7c4bb22581cf7a1ebb8c4f8bc12fb6d4.bindPopup(popup_4620510ee6b0c0c4eaa4d0a044ae3687)
+        ;
+
+        
+    
+    
+            circle_marker_7c4bb22581cf7a1ebb8c4f8bc12fb6d4.bindTooltip(
+                `<div>
+                     J7
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_79688b0d3317669a0a80e0b39f0f5fb2 = L.circleMarker(
+                [40.64283, -73.85117],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_1b189538bef50d0887f7ca21749d28c1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a978bec34053e19ec20554666296c9cf = $(`<div id="html_a978bec34053e19ec20554666296c9cf" style="width: 100.0%; height: 100.0%;"><b>J8</b> (Jamaica Bay)<br>type: open<br>samples: 241<br>same-day matchups: 57</div>`)[0];
+                popup_1b189538bef50d0887f7ca21749d28c1.setContent(html_a978bec34053e19ec20554666296c9cf);
+            
+        
+
+        circle_marker_79688b0d3317669a0a80e0b39f0f5fb2.bindPopup(popup_1b189538bef50d0887f7ca21749d28c1)
+        ;
+
+        
+    
+    
+            circle_marker_79688b0d3317669a0a80e0b39f0f5fb2.bindTooltip(
+                `<div>
+                     J8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_01b88a53078ba5e3369ad345791ca921 = L.circleMarker(
+                [40.63383, -73.87367],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c9c54f161da4853179c0bb00e1c48d9a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_978bde506a4026b5134c617f9ade9dc3 = $(`<div id="html_978bde506a4026b5134c617f9ade9dc3" style="width: 100.0%; height: 100.0%;"><b>J9A</b> (Jamaica Bay)<br>type: open<br>samples: 241<br>same-day matchups: 48</div>`)[0];
+                popup_c9c54f161da4853179c0bb00e1c48d9a.setContent(html_978bde506a4026b5134c617f9ade9dc3);
+            
+        
+
+        circle_marker_01b88a53078ba5e3369ad345791ca921.bindPopup(popup_c9c54f161da4853179c0bb00e1c48d9a)
+        ;
+
+        
+    
+    
+            circle_marker_01b88a53078ba5e3369ad345791ca921.bindTooltip(
+                `<div>
+                     J9A
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b8e4091cbd5e1cf72120977c149db5a = L.circleMarker(
+                [40.643, -73.813],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_b34c88ae19c28ffc63bb10f8b1b0c071 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dce4dc0b8491aacb643500bab97d2725 = $(`<div id="html_dce4dc0b8491aacb643500bab97d2725" style="width: 100.0%; height: 100.0%;"><b>JA1</b> (Jamaica Bay)<br>type: open<br>samples: 237<br>same-day matchups: 56</div>`)[0];
+                popup_b34c88ae19c28ffc63bb10f8b1b0c071.setContent(html_dce4dc0b8491aacb643500bab97d2725);
+            
+        
+
+        circle_marker_2b8e4091cbd5e1cf72120977c149db5a.bindPopup(popup_b34c88ae19c28ffc63bb10f8b1b0c071)
+        ;
+
+        
+    
+    
+            circle_marker_2b8e4091cbd5e1cf72120977c149db5a.bindTooltip(
+                `<div>
+                     JA1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0bdea02c7410016e23b742e2d38017c0 = L.circleMarker(
+                [40.65111, -74.08195],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_a47839a51cab6135cf7af6ee0d893732 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b45b22fc02a45cca914b122d9bc6b23c = $(`<div id="html_b45b22fc02a45cca914b122d9bc6b23c" style="width: 100.0%; height: 100.0%;"><b>K1</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 238<br>same-day matchups: 48</div>`)[0];
+                popup_a47839a51cab6135cf7af6ee0d893732.setContent(html_b45b22fc02a45cca914b122d9bc6b23c);
+            
+        
+
+        circle_marker_0bdea02c7410016e23b742e2d38017c0.bindPopup(popup_a47839a51cab6135cf7af6ee0d893732)
+        ;
+
+        
+    
+    
+            circle_marker_0bdea02c7410016e23b742e2d38017c0.bindTooltip(
+                `<div>
+                     K1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e005289d25e655519331fdff7e29eec = L.circleMarker(
+                [40.64117, -74.153],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_3b6249c118066e8585ebcc0f16a2d74b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4e8d05559b76752eec7454b8bca3f7c4 = $(`<div id="html_4e8d05559b76752eec7454b8bca3f7c4" style="width: 100.0%; height: 100.0%;"><b>K2</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 238<br>same-day matchups: 43</div>`)[0];
+                popup_3b6249c118066e8585ebcc0f16a2d74b.setContent(html_4e8d05559b76752eec7454b8bca3f7c4);
+            
+        
+
+        circle_marker_0e005289d25e655519331fdff7e29eec.bindPopup(popup_3b6249c118066e8585ebcc0f16a2d74b)
+        ;
+
+        
+    
+    
+            circle_marker_0e005289d25e655519331fdff7e29eec.bindTooltip(
+                `<div>
+                     K2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_821fb161abe47feaf464241d404bd9dc = L.circleMarker(
+                [40.6375, -74.19583],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_43d283f2408323fd98bb813799d91f88 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a48b326f139c95559c1e72e4d437f846 = $(`<div id="html_a48b326f139c95559c1e72e4d437f846" style="width: 100.0%; height: 100.0%;"><b>K3</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 239<br>same-day matchups: 46</div>`)[0];
+                popup_43d283f2408323fd98bb813799d91f88.setContent(html_a48b326f139c95559c1e72e4d437f846);
+            
+        
+
+        circle_marker_821fb161abe47feaf464241d404bd9dc.bindPopup(popup_43d283f2408323fd98bb813799d91f88)
+        ;
+
+        
+    
+    
+            circle_marker_821fb161abe47feaf464241d404bd9dc.bindTooltip(
+                `<div>
+                     K3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_71b9d3c9e2dd954743f17a2fa94079ff = L.circleMarker(
+                [40.567, -74.21167],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c5ba8807ef86c5f793c425084f2b747e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2b85890c07961caaa7c10db06776c01d = $(`<div id="html_2b85890c07961caaa7c10db06776c01d" style="width: 100.0%; height: 100.0%;"><b>K4</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 239<br>same-day matchups: 45</div>`)[0];
+                popup_c5ba8807ef86c5f793c425084f2b747e.setContent(html_2b85890c07961caaa7c10db06776c01d);
+            
+        
+
+        circle_marker_71b9d3c9e2dd954743f17a2fa94079ff.bindPopup(popup_c5ba8807ef86c5f793c425084f2b747e)
+        ;
+
+        
+    
+    
+            circle_marker_71b9d3c9e2dd954743f17a2fa94079ff.bindTooltip(
+                `<div>
+                     K4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f30f110fa997d30a75e12caf2c7599f6 = L.circleMarker(
+                [40.50883, -74.25883],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_92e1b4eb42672b662138224d6d44892d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c41d36469a5b5282b4247b7e816a28ce = $(`<div id="html_c41d36469a5b5282b4247b7e816a28ce" style="width: 100.0%; height: 100.0%;"><b>K5</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 240<br>same-day matchups: 42</div>`)[0];
+                popup_92e1b4eb42672b662138224d6d44892d.setContent(html_c41d36469a5b5282b4247b7e816a28ce);
+            
+        
+
+        circle_marker_f30f110fa997d30a75e12caf2c7599f6.bindPopup(popup_92e1b4eb42672b662138224d6d44892d)
+        ;
+
+        
+    
+    
+            circle_marker_f30f110fa997d30a75e12caf2c7599f6.bindTooltip(
+                `<div>
+                     K5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e97e5f185d62580287b89b2a12bf40fa = L.circleMarker(
+                [40.4845, -74.24583],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_2932b15733b3225b29ab7f43c3c950ba = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_db7fd55c39fb182623dfbcaf94b10314 = $(`<div id="html_db7fd55c39fb182623dfbcaf94b10314" style="width: 100.0%; height: 100.0%;"><b>K5A</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 234<br>same-day matchups: 42</div>`)[0];
+                popup_2932b15733b3225b29ab7f43c3c950ba.setContent(html_db7fd55c39fb182623dfbcaf94b10314);
+            
+        
+
+        circle_marker_e97e5f185d62580287b89b2a12bf40fa.bindPopup(popup_2932b15733b3225b29ab7f43c3c950ba)
+        ;
+
+        
+    
+    
+            circle_marker_e97e5f185d62580287b89b2a12bf40fa.bindTooltip(
+                `<div>
+                     K5A
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7678bd7efa1fe65c95b73ba922f7258a = L.circleMarker(
+                [40.51033, -74.10083],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_44e7ed5f1e64f8721a8d98896af8ffe2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_455ec87098aae2f7509cb6b57f39547d = $(`<div id="html_455ec87098aae2f7509cb6b57f39547d" style="width: 100.0%; height: 100.0%;"><b>K6</b> (Kill Van Kull / Arthur Kill / Raritan Bay)<br>type: open<br>samples: 205<br>same-day matchups: 44</div>`)[0];
+                popup_44e7ed5f1e64f8721a8d98896af8ffe2.setContent(html_455ec87098aae2f7509cb6b57f39547d);
+            
+        
+
+        circle_marker_7678bd7efa1fe65c95b73ba922f7258a.bindPopup(popup_44e7ed5f1e64f8721a8d98896af8ffe2)
+        ;
+
+        
+    
+    
+            circle_marker_7678bd7efa1fe65c95b73ba922f7258a.bindTooltip(
+                `<div>
+                     K6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_098d4e1e9d18fd684c4c3fadd9a31f10 = L.circleMarker(
+                [40.778, -73.76083],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_a50e5f2fc72360269d9b0664d8297353 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_30d4d13b075038bbdda332c461216c39 = $(`<div id="html_30d4d13b075038bbdda332c461216c39" style="width: 100.0%; height: 100.0%;"><b>LN1</b> (Little Neck Bay)<br>type: open<br>samples: 233<br>same-day matchups: 43</div>`)[0];
+                popup_a50e5f2fc72360269d9b0664d8297353.setContent(html_30d4d13b075038bbdda332c461216c39);
+            
+        
+
+        circle_marker_098d4e1e9d18fd684c4c3fadd9a31f10.bindPopup(popup_a50e5f2fc72360269d9b0664d8297353)
+        ;
+
+        
+    
+    
+            circle_marker_098d4e1e9d18fd684c4c3fadd9a31f10.bindTooltip(
+                `<div>
+                     LN1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1df8bfbaed89ac7f2f1c3b0ec0b94784 = L.circleMarker(
+                [40.9145, -73.91617],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_e85cfff65dc6822e508a7084d1023cf9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_40abf18134afe1ee8fa2a1c57eb6f1c2 = $(`<div id="html_40abf18134afe1ee8fa2a1c57eb6f1c2" style="width: 100.0%; height: 100.0%;"><b>N1</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 240<br>same-day matchups: 39</div>`)[0];
+                popup_e85cfff65dc6822e508a7084d1023cf9.setContent(html_40abf18134afe1ee8fa2a1c57eb6f1c2);
+            
+        
+
+        circle_marker_1df8bfbaed89ac7f2f1c3b0ec0b94784.bindPopup(popup_e85cfff65dc6822e508a7084d1023cf9)
+        ;
+
+        
+    
+    
+            circle_marker_1df8bfbaed89ac7f2f1c3b0ec0b94784.bindTooltip(
+                `<div>
+                     N1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5bba0ae41669784ed6f2bd9173d56db7 = L.circleMarker(
+                [40.52967, -73.94367],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_71e6c3f3a4b6b94b462228d28dc57392 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b7642a831af6f129289fb579eddd51f2 = $(`<div id="html_b7642a831af6f129289fb579eddd51f2" style="width: 100.0%; height: 100.0%;"><b>N16</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 155<br>same-day matchups: 42</div>`)[0];
+                popup_71e6c3f3a4b6b94b462228d28dc57392.setContent(html_b7642a831af6f129289fb579eddd51f2);
+            
+        
+
+        circle_marker_5bba0ae41669784ed6f2bd9173d56db7.bindPopup(popup_71e6c3f3a4b6b94b462228d28dc57392)
+        ;
+
+        
+    
+    
+            circle_marker_5bba0ae41669784ed6f2bd9173d56db7.bindTooltip(
+                `<div>
+                     N16
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_808dbf5a1ea84d96f49b333b7107ab05 = L.circleMarker(
+                [40.82083, -73.96533],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_7d7d4fa9a5d4036bb1311426342daa98 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_845e5274f30864788c2ad166237b7920 = $(`<div id="html_845e5274f30864788c2ad166237b7920" style="width: 100.0%; height: 100.0%;"><b>N3B</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 255<br>same-day matchups: 44</div>`)[0];
+                popup_7d7d4fa9a5d4036bb1311426342daa98.setContent(html_845e5274f30864788c2ad166237b7920);
+            
+        
+
+        circle_marker_808dbf5a1ea84d96f49b333b7107ab05.bindPopup(popup_7d7d4fa9a5d4036bb1311426342daa98)
+        ;
+
+        
+    
+    
+            circle_marker_808dbf5a1ea84d96f49b333b7107ab05.bindTooltip(
+                `<div>
+                     N3B
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9c153e754a5c7230564feafdd51f8894 = L.circleMarker(
+                [40.7645, -74.00583],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_7010030493c8c926a376ff2bbc505ba3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3d8e55c9a63366930125460994401648 = $(`<div id="html_3d8e55c9a63366930125460994401648" style="width: 100.0%; height: 100.0%;"><b>N4</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 254<br>same-day matchups: 44</div>`)[0];
+                popup_7010030493c8c926a376ff2bbc505ba3.setContent(html_3d8e55c9a63366930125460994401648);
+            
+        
+
+        circle_marker_9c153e754a5c7230564feafdd51f8894.bindPopup(popup_7010030493c8c926a376ff2bbc505ba3)
+        ;
+
+        
+    
+    
+            circle_marker_9c153e754a5c7230564feafdd51f8894.bindTooltip(
+                `<div>
+                     N4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6a2f51402cd863ef5c673df5991404fd = L.circleMarker(
+                [40.7045, -74.03],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_edd5b874e53074ec55eef21f6f8eb694 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4554bbec5b7bc3bbc71538b0407c3c84 = $(`<div id="html_4554bbec5b7bc3bbc71538b0407c3c84" style="width: 100.0%; height: 100.0%;"><b>N5</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 246<br>same-day matchups: 38</div>`)[0];
+                popup_edd5b874e53074ec55eef21f6f8eb694.setContent(html_4554bbec5b7bc3bbc71538b0407c3c84);
+            
+        
+
+        circle_marker_6a2f51402cd863ef5c673df5991404fd.bindPopup(popup_edd5b874e53074ec55eef21f6f8eb694)
+        ;
+
+        
+    
+    
+            circle_marker_6a2f51402cd863ef5c673df5991404fd.bindTooltip(
+                `<div>
+                     N5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e8cc0a7d8bd284598ad29a9ae84ee29e = L.circleMarker(
+                [40.66467, -74.05133],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_d5048c3f0553a788feca2023732f22a4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_956ef2d715e30b544c1e25c2256aea4e = $(`<div id="html_956ef2d715e30b544c1e25c2256aea4e" style="width: 100.0%; height: 100.0%;"><b>N6</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 229<br>same-day matchups: 45</div>`)[0];
+                popup_d5048c3f0553a788feca2023732f22a4.setContent(html_956ef2d715e30b544c1e25c2256aea4e);
+            
+        
+
+        circle_marker_e8cc0a7d8bd284598ad29a9ae84ee29e.bindPopup(popup_d5048c3f0553a788feca2023732f22a4)
+        ;
+
+        
+    
+    
+            circle_marker_e8cc0a7d8bd284598ad29a9ae84ee29e.bindTooltip(
+                `<div>
+                     N6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c933da648ec914ff9feb543716a64ef9 = L.circleMarker(
+                [40.64383, -74.05383],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_3bf004ff020a4b8dcdca65f06b2c5f9d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ed4a3d6f498fd234dd0f1da7051a40d5 = $(`<div id="html_ed4a3d6f498fd234dd0f1da7051a40d5" style="width: 100.0%; height: 100.0%;"><b>N7</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 238<br>same-day matchups: 49</div>`)[0];
+                popup_3bf004ff020a4b8dcdca65f06b2c5f9d.setContent(html_ed4a3d6f498fd234dd0f1da7051a40d5);
+            
+        
+
+        circle_marker_c933da648ec914ff9feb543716a64ef9.bindPopup(popup_3bf004ff020a4b8dcdca65f06b2c5f9d)
+        ;
+
+        
+    
+    
+            circle_marker_c933da648ec914ff9feb543716a64ef9.bindTooltip(
+                `<div>
+                     N7
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_adee7fbed812aacd23b3605245c3e6c7 = L.circleMarker(
+                [40.60617, -74.0455],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_2af5a88f95613772943a12a6798f100e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6f4d86e4b4184a6304f94d1ec8143ff9 = $(`<div id="html_6f4d86e4b4184a6304f94d1ec8143ff9" style="width: 100.0%; height: 100.0%;"><b>N8</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 234<br>same-day matchups: 49</div>`)[0];
+                popup_2af5a88f95613772943a12a6798f100e.setContent(html_6f4d86e4b4184a6304f94d1ec8143ff9);
+            
+        
+
+        circle_marker_adee7fbed812aacd23b3605245c3e6c7.bindPopup(popup_2af5a88f95613772943a12a6798f100e)
+        ;
+
+        
+    
+    
+            circle_marker_adee7fbed812aacd23b3605245c3e6c7.bindTooltip(
+                `<div>
+                     N8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6ff7bf07d2da3fb0aaa1fc99dab4f88b = L.circleMarker(
+                [40.56833, -73.98333],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_8b3cd308f5ab8485d120e9960eaa68ff = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cea9a48026c76ed8221e66dc692e0dcf = $(`<div id="html_cea9a48026c76ed8221e66dc692e0dcf" style="width: 100.0%; height: 100.0%;"><b>N9</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 215<br>same-day matchups: 45</div>`)[0];
+                popup_8b3cd308f5ab8485d120e9960eaa68ff.setContent(html_cea9a48026c76ed8221e66dc692e0dcf);
+            
+        
+
+        circle_marker_6ff7bf07d2da3fb0aaa1fc99dab4f88b.bindPopup(popup_8b3cd308f5ab8485d120e9960eaa68ff)
+        ;
+
+        
+    
+    
+            circle_marker_6ff7bf07d2da3fb0aaa1fc99dab4f88b.bindTooltip(
+                `<div>
+                     N9
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_16bd0b58834fb54e046b1d78da28672d = L.circleMarker(
+                [40.56783, -73.9355],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_2a927bd6e1a1c7d87c5828fa8b4fc8ee = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3b31642f15609910f77dd5e274de5ea1 = $(`<div id="html_3b31642f15609910f77dd5e274de5ea1" style="width: 100.0%; height: 100.0%;"><b>N9A</b> (Hudson River / Upper and Lower Bay)<br>type: open<br>samples: 239<br>same-day matchups: 54</div>`)[0];
+                popup_2a927bd6e1a1c7d87c5828fa8b4fc8ee.setContent(html_3b31642f15609910f77dd5e274de5ea1);
+            
+        
+
+        circle_marker_16bd0b58834fb54e046b1d78da28672d.bindPopup(popup_2a927bd6e1a1c7d87c5828fa8b4fc8ee)
+        ;
+
+        
+    
+    
+            circle_marker_16bd0b58834fb54e046b1d78da28672d.bindTooltip(
+                `<div>
+                     N9A
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2311ceafed47d821db251a2303656ef3 = L.circleMarker(
+                [40.717167, -73.923167],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_41b151afeb14570bc381a7922ff45bb5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2ae886277310df1412d2ecda0fa11451 = $(`<div id="html_2ae886277310df1412d2ecda0fa11451" style="width: 100.0%; height: 100.0%;"><b>NC</b> (Newtown Creek)<br>type: creek<br>samples: 23<br>same-day matchups: 5</div>`)[0];
+                popup_41b151afeb14570bc381a7922ff45bb5.setContent(html_2ae886277310df1412d2ecda0fa11451);
+            
+        
+
+        circle_marker_2311ceafed47d821db251a2303656ef3.bindPopup(popup_41b151afeb14570bc381a7922ff45bb5)
+        ;
+
+        
+    
+    
+            circle_marker_2311ceafed47d821db251a2303656ef3.bindTooltip(
+                `<div>
+                     NC
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2058ff527e4ad82e21e428581c42fdbd = L.circleMarker(
+                [40.71496, -73.93156],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_43c2c134b2da3ba9999588a62117c6a7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e3c2e78576afbb77aaaebe958ce191de = $(`<div id="html_e3c2e78576afbb77aaaebe958ce191de" style="width: 100.0%; height: 100.0%;"><b>NC0</b> (Newtown Creek)<br>type: creek<br>samples: 268<br>same-day matchups: 59</div>`)[0];
+                popup_43c2c134b2da3ba9999588a62117c6a7.setContent(html_e3c2e78576afbb77aaaebe958ce191de);
+            
+        
+
+        circle_marker_2058ff527e4ad82e21e428581c42fdbd.bindPopup(popup_43c2c134b2da3ba9999588a62117c6a7)
+        ;
+
+        
+    
+    
+            circle_marker_2058ff527e4ad82e21e428581c42fdbd.bindTooltip(
+                `<div>
+                     NC0
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5936a6e4ee193c653c2fe3a2104e00a0 = L.circleMarker(
+                [40.718167, -73.924667],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_2710f7d5ce8a3a077ed2aa981cc295f2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a1edbbccbd5bc5c76884f1f822e682d6 = $(`<div id="html_a1edbbccbd5bc5c76884f1f822e682d6" style="width: 100.0%; height: 100.0%;"><b>NC0A</b> (Newtown Creek)<br>type: creek<br>samples: 82<br>same-day matchups: 14</div>`)[0];
+                popup_2710f7d5ce8a3a077ed2aa981cc295f2.setContent(html_a1edbbccbd5bc5c76884f1f822e682d6);
+            
+        
+
+        circle_marker_5936a6e4ee193c653c2fe3a2104e00a0.bindPopup(popup_2710f7d5ce8a3a077ed2aa981cc295f2)
+        ;
+
+        
+    
+    
+            circle_marker_5936a6e4ee193c653c2fe3a2104e00a0.bindTooltip(
+                `<div>
+                     NC0A
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a749d80d8c31b7b0995295c09f30f049 = L.circleMarker(
+                [40.71694, -73.92286],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_e2f04fca99882f2ade653c7f6710c6ac = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_26f641f89dbc6cfff9a68d4f8ce4cc44 = $(`<div id="html_26f641f89dbc6cfff9a68d4f8ce4cc44" style="width: 100.0%; height: 100.0%;"><b>NC0B</b> (Newtown Creek)<br>type: creek<br>samples: 110<br>same-day matchups: 30</div>`)[0];
+                popup_e2f04fca99882f2ade653c7f6710c6ac.setContent(html_26f641f89dbc6cfff9a68d4f8ce4cc44);
+            
+        
+
+        circle_marker_a749d80d8c31b7b0995295c09f30f049.bindPopup(popup_e2f04fca99882f2ade653c7f6710c6ac)
+        ;
+
+        
+    
+    
+            circle_marker_a749d80d8c31b7b0995295c09f30f049.bindTooltip(
+                `<div>
+                     NC0B
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_96a20de3870c216b1137492eea726f94 = L.circleMarker(
+                [40.72455, -73.92704],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_7dbc28c3e463a2724467b66043a9fbe5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1151969df7ab9c41d0ea5c7f7548593a = $(`<div id="html_1151969df7ab9c41d0ea5c7f7548593a" style="width: 100.0%; height: 100.0%;"><b>NC1</b> (Newtown Creek)<br>type: creek<br>samples: 268<br>same-day matchups: 56</div>`)[0];
+                popup_7dbc28c3e463a2724467b66043a9fbe5.setContent(html_1151969df7ab9c41d0ea5c7f7548593a);
+            
+        
+
+        circle_marker_96a20de3870c216b1137492eea726f94.bindPopup(popup_7dbc28c3e463a2724467b66043a9fbe5)
+        ;
+
+        
+    
+    
+            circle_marker_96a20de3870c216b1137492eea726f94.bindTooltip(
+                `<div>
+                     NC1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_298e7ec0e4f00d8eb6ca20eae503ead9 = L.circleMarker(
+                [40.72883, -73.9355],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_8c1bf132e7fc36a0b7e3bc400a71d36a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2db0161844d43be7633f0d95a689611f = $(`<div id="html_2db0161844d43be7633f0d95a689611f" style="width: 100.0%; height: 100.0%;"><b>NC2</b> (Newtown Creek)<br>type: creek<br>samples: 269<br>same-day matchups: 54</div>`)[0];
+                popup_8c1bf132e7fc36a0b7e3bc400a71d36a.setContent(html_2db0161844d43be7633f0d95a689611f);
+            
+        
+
+        circle_marker_298e7ec0e4f00d8eb6ca20eae503ead9.bindPopup(popup_8c1bf132e7fc36a0b7e3bc400a71d36a)
+        ;
+
+        
+    
+    
+            circle_marker_298e7ec0e4f00d8eb6ca20eae503ead9.bindTooltip(
+                `<div>
+                     NC2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f08089d4d8bec1fa6c3f57d90742d060 = L.circleMarker(
+                [40.73717, -73.94617],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_3a094415bc52e90464ef76aed1735a65 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1c0278eac590ded34d4caef8f8395c7d = $(`<div id="html_1c0278eac590ded34d4caef8f8395c7d" style="width: 100.0%; height: 100.0%;"><b>NC3</b> (Newtown Creek)<br>type: creek<br>samples: 269<br>same-day matchups: 56</div>`)[0];
+                popup_3a094415bc52e90464ef76aed1735a65.setContent(html_1c0278eac590ded34d4caef8f8395c7d);
+            
+        
+
+        circle_marker_f08089d4d8bec1fa6c3f57d90742d060.bindPopup(popup_3a094415bc52e90464ef76aed1735a65)
+        ;
+
+        
+    
+    
+            circle_marker_f08089d4d8bec1fa6c3f57d90742d060.bindTooltip(
+                `<div>
+                     NC3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a67b640bf2dbb23eb0a56be373a9ace = L.circleMarker(
+                [40.826333, -73.958167],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_4a0ca2291c96e8bbdf721f0fe9f27737 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_31da2725cba75a88b059ec72b72b8584 = $(`<div id="html_31da2725cba75a88b059ec72b72b8584" style="width: 100.0%; height: 100.0%;"><b>NR1</b> (Hudson River)<br>type: open<br>samples: 101<br>same-day matchups: 14</div>`)[0];
+                popup_4a0ca2291c96e8bbdf721f0fe9f27737.setContent(html_31da2725cba75a88b059ec72b72b8584);
+            
+        
+
+        circle_marker_1a67b640bf2dbb23eb0a56be373a9ace.bindPopup(popup_4a0ca2291c96e8bbdf721f0fe9f27737)
+        ;
+
+        
+    
+    
+            circle_marker_1a67b640bf2dbb23eb0a56be373a9ace.bindTooltip(
+                `<div>
+                     NR1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_988b9554d15a24d280d39c2df49f5367 = L.circleMarker(
+                [40.628, -73.90967],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_35c59d0d3c143fa0733e9e9103f435d6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6f2f5bb73b517eed0c7bc4637a6f8a5b = $(`<div id="html_6f2f5bb73b517eed0c7bc4637a6f8a5b" style="width: 100.0%; height: 100.0%;"><b>PB2</b> (Paerdegat Basin)<br>type: creek<br>samples: 208<br>same-day matchups: 46</div>`)[0];
+                popup_35c59d0d3c143fa0733e9e9103f435d6.setContent(html_6f2f5bb73b517eed0c7bc4637a6f8a5b);
+            
+        
+
+        circle_marker_988b9554d15a24d280d39c2df49f5367.bindPopup(popup_35c59d0d3c143fa0733e9e9103f435d6)
+        ;
+
+        
+    
+    
+            circle_marker_988b9554d15a24d280d39c2df49f5367.bindTooltip(
+                `<div>
+                     PB2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9f27b4c7e4523507bff44a8d855420df = L.circleMarker(
+                [40.62342, -73.89983],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_b42d3e057a0467cd46c28d9cb2b1fa0e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3466014e7b93cabd451282584bcc7c0e = $(`<div id="html_3466014e7b93cabd451282584bcc7c0e" style="width: 100.0%; height: 100.0%;"><b>PB3</b> (Paerdegat Basin)<br>type: creek<br>samples: 211<br>same-day matchups: 44</div>`)[0];
+                popup_b42d3e057a0467cd46c28d9cb2b1fa0e.setContent(html_3466014e7b93cabd451282584bcc7c0e);
+            
+        
+
+        circle_marker_9f27b4c7e4523507bff44a8d855420df.bindPopup(popup_b42d3e057a0467cd46c28d9cb2b1fa0e)
+        ;
+
+        
+    
+    
+            circle_marker_9f27b4c7e4523507bff44a8d855420df.bindTooltip(
+                `<div>
+                     PB3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4fbb226cf31c28a15b734459b871383f = L.circleMarker(
+                [40.65507, -73.86029],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_b2b202969aa186dbd48b449c7a12e596 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1993e6087b04e2f1dfe08ac8724cafd2 = $(`<div id="html_1993e6087b04e2f1dfe08ac8724cafd2" style="width: 100.0%; height: 100.0%;"><b>SP1</b> (Spring Creek)<br>type: creek<br>samples: 197<br>same-day matchups: 38</div>`)[0];
+                popup_b2b202969aa186dbd48b449c7a12e596.setContent(html_1993e6087b04e2f1dfe08ac8724cafd2);
+            
+        
+
+        circle_marker_4fbb226cf31c28a15b734459b871383f.bindPopup(popup_b2b202969aa186dbd48b449c7a12e596)
+        ;
+
+        
+    
+    
+            circle_marker_4fbb226cf31c28a15b734459b871383f.bindTooltip(
+                `<div>
+                     SP1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eb1e4a7d4fe2153cb1bbd7146ecb1192 = L.circleMarker(
+                [40.6445, -73.85417],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_2cbc04e0f28ce15767b473a5f1d63187 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_07a8b42dec4cc66fae4efd6fc8dfd67c = $(`<div id="html_07a8b42dec4cc66fae4efd6fc8dfd67c" style="width: 100.0%; height: 100.0%;"><b>SP2</b> (Spring Creek)<br>type: creek<br>samples: 215<br>same-day matchups: 50</div>`)[0];
+                popup_2cbc04e0f28ce15767b473a5f1d63187.setContent(html_07a8b42dec4cc66fae4efd6fc8dfd67c);
+            
+        
+
+        circle_marker_eb1e4a7d4fe2153cb1bbd7146ecb1192.bindPopup(popup_2cbc04e0f28ce15767b473a5f1d63187)
+        ;
+
+        
+    
+    
+            circle_marker_eb1e4a7d4fe2153cb1bbd7146ecb1192.bindTooltip(
+                `<div>
+                     SP2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ecb84f79edf04ebb4047803d8405c4b5 = L.circleMarker(
+                [40.64233, -73.74733],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_bb997163e79fab04f23591c21b3b1760 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_25a4a713628512744fdffea3909870d2 = $(`<div id="html_25a4a713628512744fdffea3909870d2" style="width: 100.0%; height: 100.0%;"><b>TB1</b> (Thurston Basin)<br>type: creek<br>samples: 206<br>same-day matchups: 23</div>`)[0];
+                popup_bb997163e79fab04f23591c21b3b1760.setContent(html_25a4a713628512744fdffea3909870d2);
+            
+        
+
+        circle_marker_ecb84f79edf04ebb4047803d8405c4b5.bindPopup(popup_bb997163e79fab04f23591c21b3b1760)
+        ;
+
+        
+    
+    
+            circle_marker_ecb84f79edf04ebb4047803d8405c4b5.bindTooltip(
+                `<div>
+                     TB1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b7d2d1a6ba140b93d8d28a833aee3249 = L.circleMarker(
+                [40.63576, -73.74764],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_c34ddfa79e0ccb81c3b0a350eb81bac5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_be8a6dadbe9fcf2d1b098d85c810b521 = $(`<div id="html_be8a6dadbe9fcf2d1b098d85c810b521" style="width: 100.0%; height: 100.0%;"><b>TB2</b> (Thurston Basin)<br>type: creek<br>samples: 206<br>same-day matchups: 22</div>`)[0];
+                popup_c34ddfa79e0ccb81c3b0a350eb81bac5.setContent(html_be8a6dadbe9fcf2d1b098d85c810b521);
+            
+        
+
+        circle_marker_b7d2d1a6ba140b93d8d28a833aee3249.bindPopup(popup_c34ddfa79e0ccb81c3b0a350eb81bac5)
+        ;
+
+        
+    
+    
+            circle_marker_b7d2d1a6ba140b93d8d28a833aee3249.bindTooltip(
+                `<div>
+                     TB2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_23b07e4cedeeba7f1b8d64d947e4cfd4 = L.circleMarker(
+                [40.82775, -73.84228],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_02de3f1eda8758b9fa31cd6e3f7d1a5a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f8c0de8894a5aea73dd8ac80641cea59 = $(`<div id="html_f8c0de8894a5aea73dd8ac80641cea59" style="width: 100.0%; height: 100.0%;"><b>WC1</b> (Westchester Creek)<br>type: creek<br>samples: 207<br>same-day matchups: 40</div>`)[0];
+                popup_02de3f1eda8758b9fa31cd6e3f7d1a5a.setContent(html_f8c0de8894a5aea73dd8ac80641cea59);
+            
+        
+
+        circle_marker_23b07e4cedeeba7f1b8d64d947e4cfd4.bindPopup(popup_02de3f1eda8758b9fa31cd6e3f7d1a5a)
+        ;
+
+        
+    
+    
+            circle_marker_23b07e4cedeeba7f1b8d64d947e4cfd4.bindTooltip(
+                `<div>
+                     WC1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cd87f8a8895a0adeb373b578f26d4022 = L.circleMarker(
+                [40.83888, -73.83984],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_7658244c668a53419bcd26ad6c3850aa = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ef9e1d2a7371df691d7a77cde1e8a225 = $(`<div id="html_ef9e1d2a7371df691d7a77cde1e8a225" style="width: 100.0%; height: 100.0%;"><b>WC2</b> (Westchester Creek)<br>type: creek<br>samples: 189<br>same-day matchups: 38</div>`)[0];
+                popup_7658244c668a53419bcd26ad6c3850aa.setContent(html_ef9e1d2a7371df691d7a77cde1e8a225);
+            
+        
+
+        circle_marker_cd87f8a8895a0adeb373b578f26d4022.bindPopup(popup_7658244c668a53419bcd26ad6c3850aa)
+        ;
+
+        
+    
+    
+            circle_marker_cd87f8a8895a0adeb373b578f26d4022.bindTooltip(
+                `<div>
+                     WC2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eb14a4d6f0890d0fcbf69f2dcd0b010d = L.circleMarker(
+                [40.81507, -73.84319],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+        
+    
+        var popup_815ecc6c10563d1b604c0fef04029b3b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8197db44072940eedff18d9e1c46f747 = $(`<div id="html_8197db44072940eedff18d9e1c46f747" style="width: 100.0%; height: 100.0%;"><b>WC3</b> (Westchester Creek)<br>type: creek<br>samples: 215<br>same-day matchups: 42</div>`)[0];
+                popup_815ecc6c10563d1b604c0fef04029b3b.setContent(html_8197db44072940eedff18d9e1c46f747);
+            
+        
+
+        circle_marker_eb14a4d6f0890d0fcbf69f2dcd0b010d.bindPopup(popup_815ecc6c10563d1b604c0fef04029b3b)
+        ;
+
+        
+    
+    
+            circle_marker_eb14a4d6f0890d0fcbf69f2dcd0b010d.bindTooltip(
+                `<div>
+                     WC3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var measure_control_8f115e2e53b5a3ba2270b6aff3254041 = new L.Control.Measure(
+                {
+  "position": "topright",
+  "primaryLengthUnit": "meters",
+  "secondaryLengthUnit": "miles",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_d87f91b15578f262f15e287dbca6611f.addControl(measure_control_8f115e2e53b5a3ba2270b6aff3254041);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            var layer_control_134c1152db7f790fbc289b657210af10_layers = {
+                base_layers : {
+                    "Satellite" : tile_layer_843486df93656aa874b203d6c58a1db8,
+                    "Streets" : tile_layer_6bbb9c22b0386dd37090c9e404c015f3,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_134c1152db7f790fbc289b657210af10 = L.control.layers(
+                layer_control_134c1152db7f790fbc289b657210af10_layers.base_layers,
+                layer_control_134c1152db7f790fbc289b657210af10_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_d87f91b15578f262f15e287dbca6611f);
+
+        
+</script>
+</html>

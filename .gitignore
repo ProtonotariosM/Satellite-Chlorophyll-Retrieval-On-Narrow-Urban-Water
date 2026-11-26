@@ -3,6 +3,7 @@ data/*
 !data/raw/
 data/raw/*
 !data/raw/harbor_water_quality.csv
+!data/station_types.csv
 *.tif
 *.zip
 *.SAFE/

@@ -20,8 +20,13 @@ from pathlib import Path
 import ee
 import pandas as pd
 
-# Sentinel-2 Level-1C collection. 
-S2_COLLECTION = "COPERNICUS/S2_HARMONIZED"
+# Sentinel-2 collections: Level-1C (top of atmosphere, as in the paper) and
+# Level-2A (atmospherically corrected by ESA's Sen2Cor; available from 2017).
+S2_COLLECTIONS = {
+    "L1C": "COPERNICUS/S2_HARMONIZED",
+    "L2A": "COPERNICUS/S2_SR_HARMONIZED",
+}
+L2A_START_DATE = "2017-04-01"
 
 # Cloud Score+ cloud mask. QA60 is masked between Feb 2022 and Feb 2024 in
 # Earth Engine, so it cannot be used for the whole 2016-2025 period.
@@ -81,14 +86,15 @@ def prepare_image(image: ee.Image) -> ee.Image:
 
 
 def get_candidate_images(sample_date: ee.Date, region: ee.Geometry,
-                         window_days: int = MATCH_WINDOW_DAYS) -> ee.ImageCollection:
+                         window_days: int = MATCH_WINDOW_DAYS,
+                         product: str = "L1C") -> ee.ImageCollection:
     """Get images near the sample date that intersect its station buffer"""
     start = sample_date.advance(-window_days, "day")
     # Earth Engine filterDate uses an exclusive end date.
     end = sample_date.advance(window_days + 1, "day")
 
     return (
-        ee.ImageCollection(S2_COLLECTION)
+        ee.ImageCollection(S2_COLLECTIONS[product])
         .filterDate(start, end)
         .filterBounds(region)
         # Attach the Cloud Score+ band to each matching Sentinel-2 image
@@ -98,7 +104,7 @@ def get_candidate_images(sample_date: ee.Date, region: ee.Geometry,
 
 
 def make_pixel_features(sample: ee.Feature, window_days: int = MATCH_WINDOW_DAYS,
-                        scale_m: int = 10) -> ee.FeatureCollection:
+                        scale_m: int = 10, product: str = "L1C") -> ee.FeatureCollection:
     """Return pixel-level features for all candidate images for one sample.
 
     Runs on the Earth Engine server: `sample` is an ee.Feature whose geometry
@@ -107,7 +113,7 @@ def make_pixel_features(sample: ee.Feature, window_days: int = MATCH_WINDOW_DAYS
     region = sample.geometry().buffer(BUFFER_METERS)
     sample_date = ee.Date(sample.get("date"))
 
-    images = get_candidate_images(sample_date, region, window_days=window_days)
+    images = get_candidate_images(sample_date, region, window_days=window_days, product=product)
 
     def extract_image(image: ee.Image) -> ee.FeatureCollection:
         image_time = ee.Date(image.get("system:time_start"))
@@ -155,7 +161,7 @@ def make_pixel_features(sample: ee.Feature, window_days: int = MATCH_WINDOW_DAYS
                 "pixel_lon": coords.get(0),
                 "pixel_lat": coords.get(1),
                 "buffer_m": BUFFER_METERS,
-                "processing": "L1C_CloudScorePlus_noSIAC",  
+                "processing": f"{product}_CloudScorePlus",  
                 "image_id": image.get("system:index"),
                 "NDVI_buffer_mean": buffer_means.get("NDVI"),   # keep the pixel-level data, but also calculate mean for the baseline
                 "NDCI_buffer_mean": buffer_means.get("NDCI"),
@@ -206,11 +212,12 @@ def samples_to_feature_collection(samples: pd.DataFrame) -> ee.FeatureCollection
 
 
 def extract_pixels(samples: pd.DataFrame, window_days: int,
-                   scale_m: int) -> ee.FeatureCollection:
+                   scale_m: int, product: str = "L1C") -> ee.FeatureCollection:
     """Pixel-level matchups for all samples, computed on the server."""
     sample_fc = samples_to_feature_collection(samples)
     return sample_fc.map(
-        lambda sample: make_pixel_features(sample, window_days=window_days, scale_m=scale_m)
+        lambda sample: make_pixel_features(sample, window_days=window_days,
+                                           scale_m=scale_m, product=product)
     ).flatten()
 
 
@@ -239,6 +246,12 @@ def main() -> None:
         "--year", type=int, default=None,
         help="Only export this year (default: one export task per year)",
     )
+
+    parser.add_argument(
+        "--product", choices=sorted(S2_COLLECTIONS), default="L1C",
+        help="L1C = top of atmosphere (paper); L2A = atmospherically corrected (from 2017)",
+    )
+
     args = parser.parse_args()
 
     initialize_earth_engine(args.project)
@@ -247,13 +260,16 @@ def main() -> None:
         samples = samples[samples["station"].isin(args.stations)]
     if args.year:
         samples = samples[samples["date"].dt.year == args.year]
+    if args.product == "L2A":
+        # Level-2A images are only available in Earth Engine from 2017
+        samples = samples[samples["date"] >= L2A_START_DATE]
     if samples.empty:
         raise RuntimeError("No valid insitu samples to process.")
 
     # Test mode: compute a few samples directly and save them locally.
     if args.limit:
         test = samples.head(args.limit)
-        result = extract_pixels(test, args.window_days, args.scale_m).getInfo()
+        result = extract_pixels(test, args.window_days, args.scale_m, args.product).getInfo()
         rows = pd.DataFrame([f["properties"] for f in result["features"]])
         out = Path("data/processed") / f"{args.output_prefix}_test.csv"
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -265,7 +281,7 @@ def main() -> None:
     for year, year_samples in samples.groupby(samples["date"].dt.year):
         name = f"{args.output_prefix}_{year}"
         task = ee.batch.Export.table.toDrive(
-            collection=extract_pixels(year_samples, args.window_days, args.scale_m),
+            collection=extract_pixels(year_samples, args.window_days, args.scale_m, args.product),
             description=name,
             fileNamePrefix=name,
             fileFormat="CSV",

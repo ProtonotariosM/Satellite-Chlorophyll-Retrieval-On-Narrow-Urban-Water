@@ -42,13 +42,14 @@ DEFAULT_MIN_PIXELS = 4
 DEFAULT_CLOUD_THRESHOLD = 0.60
 
 
-def load_pixels(processed_dir: str | Path = DEFAULT_PROCESSED_DIR) -> pd.DataFrame:
+def load_pixels(processed_dir: str | Path = DEFAULT_PROCESSED_DIR,
+                pattern: str = PIXEL_FILE_PATTERN) -> pd.DataFrame:
     """Read and combine all yearly pixel exports."""
 
-    paths = sorted(Path(processed_dir).glob(PIXEL_FILE_PATTERN))
+    paths = sorted(Path(processed_dir).glob(pattern))
     if not paths:
         raise FileNotFoundError(
-            f"No files matching {PIXEL_FILE_PATTERN} in {processed_dir}. "
+            f"No files matching {pattern} in {processed_dir}. "
             "Download the Earth Engine exports from Google Drive first."
         )
 
@@ -125,9 +126,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--min-pixels", type=int, default=DEFAULT_MIN_PIXELS)
     parser.add_argument("--cloud-threshold", type=float, default=DEFAULT_CLOUD_THRESHOLD)
+    parser.add_argument("--pattern", default=PIXEL_FILE_PATTERN,
+                        help="File pattern of the exports, e.g. 's2_l2a_pixel_matchups_*.csv'")
     args = parser.parse_args(argv)
 
-    pixels = load_pixels(args.input_dir)
+    pixels = load_pixels(args.input_dir, args.pattern)
     matchups, diagnostics = build_matchups(
         pixels, min_pixels=args.min_pixels, cloud_threshold=args.cloud_threshold
     )
